@@ -110,9 +110,8 @@ Tests were done with `rspec`, `rspec spec/<filename>.rb`: run individual test, `
 
 `output_spec.rb`: tests for displaying the output
 
-`apply_tax.rb`: tests that the 3 input files produce correct output
+`apply_tax_spec.rb`: tests that the 3 input files produce correct output
   
-
 
 ## Assumptions
 1. The input text file follows the following syntax:
