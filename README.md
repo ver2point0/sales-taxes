@@ -58,25 +58,35 @@ Total: 74.68
 input1.txt
 input2.txt
 input3.txt
+
+## Design
+I wrote 5 major classes for this application:
+
+`input.rb`: a file is imported and broken down into an array
+
+`parse.rb`: that array is taken and parsed into an array of 
+
+`calculate.rb`: that array of hashes is updated with the correct totals
+
+`output.rb`: where the output is displayed  
+
+`apply_tax.rb`: calls input, parse, calculate, and output classes to generate receipts
   
 ## Testing:
-Tests were done with `rspec`.  
-`rspec spec/<filename>.rb` - individual test  
-`rspec` - run all tests  
+Tests were done with `rspec`, `rspec spec/<filename>.rb`: run individual test, `rspec`: run all tests  
 
 ## Test Files:
-input_spec.rb: tests for file input
-parse_spec.rb: tests for file input being correctly
-calculate_spec.rb: tests for calculating sales tax and totals
-output_spec.rb: tests for displaying the output
-apply_tax.rb: tests that the 3 input files produce correct output
+`input_spec.rb`: tests for file input
+
+`parse_spec.rb`: tests for file input being correctly parsed
+
+`calculate_spec.rb`: tests for calculating sales tax and totals
+
+`output_spec.rb`: tests for displaying the output
+
+`apply_tax.rb`: tests that the 3 input files produce correct output
   
-## Design
-I wrote 4 major classes for this application:
-`input`: a file is imported and broken down into an array
-`parse`: that array is taken and parsed into an array of hashes
-`calculate`: that array of hashes is updated with the correct totals
-`output`: where the output is displayed  
+
 
 ## Assumptions
 1. The input text file follows the following syntax:
@@ -111,15 +121,15 @@ Knowing `at's` location (index 2), we can assume anything between index 0 (quant
 The price would be located at index 3 (index 2+1).  
 
 A hash is built like so:
-> name: string  
-> quantity: integer  
-> price: float  
-> item: boolean  
-> import: boolean  
-> item_tax: float  
-> import_tax: float  
-> sales_tax: float  
-> total: float  
+name: string  
+quantity: integer  
+price: float  
+item: boolean  
+import: boolean  
+item_tax: float  
+import_tax: float  
+sales_tax: float  
+total: float  
 
 `item` and `import` signal whether or not `item_tax` or `import_tax` should be applied.  
 
