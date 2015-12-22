@@ -37,7 +37,7 @@ describe "output" do
   end
   
   it "should display the item quantity, name, total price, sales tax and total" do
-    buy.execute
+    buy.start
     buy.output.should == [
     "1 chocolate star: 0.85", 
     "1 imported cat: 689.99", 

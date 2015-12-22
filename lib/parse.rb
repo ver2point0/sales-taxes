@@ -17,7 +17,7 @@ class Parse
   end
   
   def clean(parse_list)
-    parse_list.select { |i| i[:quantity] > 0 }
+    parse_list.select { |item| item[:quantity] > 0 }
   end
   
   def parse(input_list)

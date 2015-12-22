@@ -14,7 +14,7 @@ describe "apply tax" do
     buy.start.output.should == [
       "1 book: 12.49",
       "1 music cd: 16.49",
-      "chocolate bar: 0.85",
+      "1 chocolate bar: 0.85",
       "Sales Taxes: 1.50",
       "Total: 29.83"]
   end

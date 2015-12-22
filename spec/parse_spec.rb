@@ -5,12 +5,12 @@ require_relative "../lib/parse"
 
 describe "parse" do
 
-  receipt = ["1 chocolate bar at 0.85", "1 samsung at 599.99", "1 imported samsung at 599.99"]
+  receipt = ["1 chocolate bar at 0.85", "1 samsung 599.99", "1 samsung at 599.99"]
   exemptions = ["chocolate"]
   
   buy = Parse.new(receipt, exemptions)
   
-  clean_receipt = ["1 chocolate bar at 0.85", "1 samsung 599.99"]
+  clean_receipt = ["1 chocolate bar at 0.85", "1 samsung at 599.99"]
   phone = ["1", "samsung", "at", "599.99"]
   phone_import = ["1", "imported", "samsung", "at", "599.99"]
   chocolate = ["1", "chocolate", "bar", "at", "0.85"]
@@ -33,7 +33,7 @@ describe "parse" do
   end
   
   it "should find the name:string" do
-    buy.find_name(phone).should == "same"
+    buy.find_name(phone).should == "samsung"
   end
 
   it "should find the quantity:integer" do
@@ -66,7 +66,7 @@ describe "parse" do
     buy.calculate_total(phone, 0.0).should == 599.99
   end
   
-  it "should find the items and build a hash made up of item name:string, quantity:integer, price:float, itemd:boolean, import:boolean, total:float" do
+  it "should find the items and build a hash made up of item name:string, quantity:integer, price:float, item:boolean, import:boolean, total:float" do
     buy.find_item(chocolate).should == result_hash[0]
   end
 
@@ -83,13 +83,13 @@ describe "parse" do
   end
 
   it "should set quantity to 0 if there is no integer" do
-    zero_item = ["zero nothing here at 9.99", "1 nokia n95 at 599.99"]
-    buy.parse(zero__item).should == [ 
+    zero_item = ["zero nothing here at 9.99", "1 samsung at 599.99"]
+    buy.parse(zero_item).should == [ 
       { name: "nothing here", quantity: 0,
       price: 9.99, item: true, import: false, item_tax: 0.0, 
       import_tax: 0.0, sales_tax: 0.0, total: 0.0 }, 
       {:name=>"samsung", :quantity=>1, :price=>599.99, :item=>true, 
-      :import=>false, :good_tax=>0.0, :import_tax=>0.0, :sales_tax=>0.0, :total=>599.99} ]
+      :import=>false, :item_tax=>0.0, :import_tax=>0.0, :sales_tax=>0.0, :total=>599.99} ]
   end
   
   it "should set the price to 0 if there is no float" do
@@ -97,9 +97,9 @@ describe "parse" do
     buy.parse(no_price).should == [ { name: "nothing here", quantity: 1, price: 0.0, item: true, import: false, item_tax: 0.0, import_tax: 0.0, sales_tax: 0.0, total: 0.0 } ]
   end
 
-  it "should select items with a qty > 0" do
+  it "should select items with a quantity > 0" do
     no_quantity = [ { name: "nothing here", quantity: 0, price: 9.99, item: true, import: false, item_tax: 0.0, import_tax: 0.0, sales_tax: 0.0, total: 0.0 }, 
-    {:name=>"samsung", :qty=>1, :price=>599.99, :item=>true, :import=>false, :item_tax=>0.0, :import_tax=>0.0, :sales_tax=>0.0, :total=>599.99} ]
+    {:name=>"samsung", :quantity=>1, :price=>599.99, :item=>true, :import=>false, :item_tax=>0.0, :import_tax=>0.0, :sales_tax=>0.0, :total=>599.99} ]
     buy.clean(no_quantity).should == [{:name=>"samsung", :quantity=>1, 
     :price=>599.99, :item=>true, :import=>false, :item_tax=>0.0, :import_tax=>0.0, :sales_tax=>0.0, :total=>599.99}]
   end
@@ -108,7 +108,7 @@ describe "parse" do
     receipt = ["1 chocolate star at 0.85", "1 imported fish at 599.99", "1 frog at 10.99", "there is nothing here", "zeros here at 9.99"]
     exemptions = ["chocolate"]
     buy = Parse.new(receipt, exemptions)
-    buy.generate.should == [ 
+    buy.start.should == [ 
     {name: "chocolate star", quantity: 1, price: 0.85, item: false, import: false, item_tax: 0.0, import_tax: 0.0, sales_tax: 0.0, total: 0.85}, 
     {name: "imported fish", quantity: 1, price: 599.99, item: true, import: true, item_tax: 0.0, import_tax: 0.0, sales_tax: 0.0, total: 599.99}, 
     {name: "frog", quantity: 1, price: 10.99, item: true, import: false, item_tax: 0.0, import_tax: 0.0, sales_tax: 0.0, total: 10.99} ]

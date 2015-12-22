@@ -34,7 +34,7 @@ describe "calculate" do
   it "should calculate the item tax" do
     item_price = 1.00
     tax_rate = 0.05
-    purchases.compute_tax(item_price, tax_rate).should == 0.05
+    buy.item_tax(item_price, tax_rate).should == 0.05
   end
   
   it "should round the tax amount" do
