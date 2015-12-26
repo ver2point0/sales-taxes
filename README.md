@@ -161,4 +161,6 @@ total: float
 `item` and `import` signal whether or not `item_tax` or `import_tax` should be applied.  
 
 `item_tax`, `import_tax`, `sales_tax`, are initially set to 0.0 and are updated via `calculate`. 
-`total` is simply set to `quantity` * `price` and is updated by calculate.  
+`total` is simply set to `quantity` * `price` and is updated by calculate.
+
+[![ghit.me](https://ghit.me/badge.svg?repo=ver2point0/sales-taxes)](https://ghit.me/repo/ver2point0/sales-taxes)
